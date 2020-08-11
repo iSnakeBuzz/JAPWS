@@ -52,11 +52,75 @@
                 </div>
 
                 <button id="send" class="btn btn-outline-success w-100 mt-4">Enviar</button>
+
+                <div class="mx-auto mt-2 text-center">
+                    <fb:login-button
+                            scope="public_profile,email"
+                            onlogin="checkLoginState();">
+                    </fb:login-button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+
+<script>
+    function statusChangeCallback(resp) {
+        console.log("Hello - ", resp)
+        if (resp.status !== "connected") return;
+
+        let user_id = resp.authResponse.userID;
+
+        FB.api(
+            `/${user_id}/`,
+            function (response) {
+                if (response && !response.error) {
+                    console.log(response);
+                    let alert = document.getElementById('alert');
+
+                    alert.classList.add("bg-success")
+                    alert.classList.remove("d-none")
+                    alert.innerText = `Bienvenido ${response.name}! Redirigiendo..`;
+
+                    localStorage.setItem("logged", response);
+                    setTimeout(() => {
+                        window.location.href = "index.html";
+                    }, 1000 * 3)
+                }
+            }
+        );
+    }
+
+    function checkLoginState() {
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+        });
+    }
+
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '322697965545436',
+            cookie: true,
+            xfbml: true,
+            version: 'v8.0'
+        });
+
+        FB.AppEvents.logPageView();
+
+    };
+
+    (function (d, s, id) {
+        let js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
 
 <script src="js/init.js"></script>
 <script src="js/login.js"></script>
