@@ -77,15 +77,16 @@
     }
 
     function onSignIn(googleUser) {
+        let profile = googleUser.getBasicProfile();
         let alert = document.getElementById('alert');
         alert.classList.remove("bg-success")
         alert.classList.remove("bg-danger")
 
         alert.classList.add("bg-success")
         alert.classList.remove("d-none")
-        alert.innerText = "Has ingresado con exito! Redirigiendo...";
+        alert.innerText = "Bienvenido " + profile.getName() + ". Redirigiendo...";
 
-        localStorage.setItem("logged", googleUser);
+        localStorage.setItem("logged", profile.getName());
         setTimeout(() => {
             window.location.href = "index.html";
         }, 1000 * 3)
