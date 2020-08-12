@@ -6,6 +6,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
+    <meta name="google-signin-client_id"
+          content="95688860838-93kul11ar36jg9ijjrd1f6v0h9aro5iq.apps.googleusercontent.com">
     <title>eMercado - Todo lo que busques está aquí</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
@@ -53,11 +55,12 @@
 
                 <button id="send" class="btn btn-outline-success w-100 mt-4">Enviar</button>
 
-                <div class="mx-auto mt-2 text-center">
-                    <fb:login-button
-                            scope="public_profile,email"
-                            onlogin="checkLoginState();">
-                    </fb:login-button>
+                <div class="row justify-content-center mx-auto mt-2 text-center">
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                </div>
+
+                <div class="text-center">
+                    <a href="#" onclick="signOut();">Sign out</a>
                 </div>
             </div>
         </div>
@@ -66,63 +69,33 @@
 
 
 <script>
-    function statusChangeCallback(resp) {
-        console.log("Hello - ", resp)
-        if (resp.status !== "connected") return;
-
-        let user_id = resp.authResponse.userID;
-
-        FB.api(
-            `/${user_id}/`,
-            function (response) {
-                if (response && !response.error) {
-                    console.log(response);
-                    let alert = document.getElementById('alert');
-
-                    alert.classList.add("bg-success")
-                    alert.classList.remove("d-none")
-                    alert.innerText = `Bienvenido ${response.name}! Redirigiendo..`;
-
-                    localStorage.setItem("logged", response);
-                    setTimeout(() => {
-                        window.location.href = "index.html";
-                    }, 1000 * 3)
-                }
-            }
-        );
-    }
-
-    function checkLoginState() {
-        FB.getLoginStatus(function (response) {
-            statusChangeCallback(response);
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
         });
     }
 
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '322697965545436',
-            cookie: true,
-            xfbml: true,
-            version: 'v8.0'
-        });
+    function onSignIn(googleUser) {
+        let alert = document.getElementById('alert');
+        alert.classList.remove("bg-success")
+        alert.classList.remove("bg-danger")
 
-        FB.AppEvents.logPageView();
+        alert.classList.add("bg-success")
+        alert.classList.remove("d-none")
+        alert.innerText = "Has ingresado con exito! Redirigiendo...";
 
-    };
-
-    (function (d, s, id) {
-        let js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {
-            return;
-        }
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+        localStorage.setItem("logged", googleUser);
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1000 * 3)
+    }
 </script>
 
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://apis.google.com/js/api.js"></script>
 <script src="js/init.js"></script>
 <script src="js/login.js"></script>
+<script src="js/oAuth.js"></script>
 </body>
 </html>
