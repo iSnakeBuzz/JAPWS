@@ -48,6 +48,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
     if (!localStorage.getItem("logged")) {
         if (!window.location.href.includes("login.html"))
             window.location.href = "login.html";
+    } else {
+        let navUser = document.getElementById('nav_user');
+        navUser.innerText = localStorage.getItem("logged");
     }
 
 

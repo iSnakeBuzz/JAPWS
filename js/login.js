@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
             alert.classList.remove("d-none")
             alert.innerText = "Has ingresado con exito! Redirigiendo...";
 
-            localStorage.setItem("logged", "esto es un estado xD");
+            localStorage.setItem("logged", data.username);
             setTimeout(() => {
                 window.location.href = "index.html";
             }, 1000 * 3)
@@ -46,5 +46,4 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
     })
 
-    console.log("Hello? XD")
 });
