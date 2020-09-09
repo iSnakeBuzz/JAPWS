@@ -104,7 +104,7 @@ function template(name, desc, img, price) {
                         <p class="card-text">
                         ${desc}
                         </p>
-                        <!--<a href="#" class="btn btn-primary">Ver producto</a>-->
+                        <a href="product-info.html" class="btn btn-primary">Ver producto</a>
                     </div>
             </div>
         </div>

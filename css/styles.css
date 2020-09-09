@@ -141,8 +141,35 @@ a.custom-card:hover {
     text-decoration: inherit;
 }
 
+
+.score label:hover,
+.score label:hover ~ label {
+    color: #e09200 !important;
+}
+
+.score input:checked ~ label {
+    color: #ffa500;
+}
+
+.score {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
 .checked {
-    color: orange;
+    color: #ffa500;
+}
+
+.score input {
+    position: absolute;
+    top: -100px;
+}
+
+.score label {
+    float: right;
+    color: #c1b8b8;
+    font-size: 25px;
 }
 
 .v-center {
