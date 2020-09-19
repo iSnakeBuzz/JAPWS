@@ -94,7 +94,7 @@ function update() {
     })
 }
 
-function template(name, desc, img, price) {
+function template(name, desc, img, price, btnActive = true) {
     return (`
         <div class="col col-auto">
             <div class="card" style="width: 20rem; ">
@@ -104,9 +104,19 @@ function template(name, desc, img, price) {
                         <p class="card-text">
                         ${desc}
                         </p>
-                        <a href="product-info.html" class="btn btn-primary">Ver producto</a>
+                        
+                        ${button(btnActive)}
                     </div>
             </div>
         </div>
     `);
+}
+
+/**
+ * Get button if true
+ * @param bool
+ */
+function button(bool) {
+    if (bool)
+        return `<a href="product-info.html" class="btn btn-primary">Ver producto</a>`
 }

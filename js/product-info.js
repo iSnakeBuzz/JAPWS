@@ -1,4 +1,5 @@
 let comments = [];
+let relatedProducts = [];
 let localScore = 0;
 
 document.addEventListener("DOMContentLoaded", function (e) {
@@ -8,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
         console.log(data)
         loadContent(data)
+        loadRelatedProds(data.relatedProducts)
 
         document.getElementById('sendComment').addEventListener('click', ev => {
             let user = localStorage.getItem('logged');
@@ -63,7 +65,7 @@ function loadContent(data = {}) {
     let imageContainer = document.getElementById('imagesContainer');
     imageContainer.innerText = "";
     for (let i = 0; i < data.images.length; i++) {
-        imageContainer.innerHTML += parseImage(data.images[i]);
+        imageContainer.innerHTML += parseImage(data.images[i], i == 0);
     }
 
     // Comments
@@ -96,12 +98,18 @@ function updateComments(comments = []) {
  *
  * @param imageSrc the source of the Image
  */
-function parseImage(imageSrc) {
-    return `
+function parseImage(imageSrc, active) {
+    /*OLD - return `
         <div class="col-lg-3 col-md-4 col-6">
             <a href="#" class="d-block mb-4 h-100">
                 <img class="img-fluid img-thumbnail" src="${imageSrc}" alt="">
             </a>
+        </div>
+    `;*/
+
+    return `
+        <div class="carousel-item ${active ? "active" : ""}" >
+            <img src="${imageSrc}" class="d-block w-100" style="height: 350px; object-fit: cover;"/>
         </div>
     `;
 }
@@ -130,6 +138,12 @@ function parseComment(comment = {}) {
 
 }
 
+/**
+ * parse score (integer) to Stars(icon)
+ *
+ * @param score Amount of stars
+ * @returns {string} Stars in HTML format
+ */
 function parseScore(score) {
     let toSend = "";
     let unchecked = 5 - score;
@@ -139,7 +153,6 @@ function parseScore(score) {
             <span class="checked">★</span>
         `;
     }
-
     if (unchecked !== 0) {
         for (let i = 0; i < unchecked; i++) {
             toSend += `
@@ -149,4 +162,40 @@ function parseScore(score) {
     }
 
     return toSend;
+}
+
+
+/**
+ * Get related products
+ *
+ * @param ids IDS
+ */
+function loadRelatedProds(ids) {
+    fetch(PRODUCTS_URL).then(value => value.json()).then(resp => {
+        let relatedProducts = "";
+        resp.forEach((data, index) => {
+            if (ids.includes(index)) {
+                relatedProducts += template(data.name, data.description, data.imgSrc, data.currency + " " + data.cost, false);
+            }
+        })
+
+        document.getElementById('productsRelated').innerHTML = relatedProducts;
+    });
+}
+
+
+function template(name, desc, img, price, btnActive = true) {
+    return (`
+        <div class="col col-auto">
+            <div class="card" style="width: 20rem; ">
+                <img src=${img} class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${name}<label class="float-right" style="font-size: 14px">${price}</label></h5>
+                        <p class="card-text">
+                        ${desc}
+                        </p>
+                    </div>
+            </div>
+        </div>
+    `);
 }

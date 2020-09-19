@@ -50,8 +50,28 @@ document.addEventListener("DOMContentLoaded", function (e) {
             window.location.href = "login.html";
     } else {
         let navUser = document.getElementById('nav_user');
-        navUser.innerText = localStorage.getItem("logged");
+        navUser.innerHTML = getDropDown(localStorage.getItem("logged"));
     }
 
 
 });
+
+
+function getDropDown(name) {
+    return `
+    <span class="dropdown">
+        <span id="handleClick" class="nameStyle pointer" data-toggle="dropdown">${name}</span>
+        
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="cart.html">Cart</a>
+            <a class="dropdown-item" href="my-profile.html">Profile</a>
+            <div class="dropdown-item pointer" onclick="handleLogout()">Cerrar sesion</div>
+        </div>
+    </span>
+    `
+}
+
+function handleLogout() {
+    localStorage.removeItem("logged");
+    window.location.href = "login.html";
+}

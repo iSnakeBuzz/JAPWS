@@ -172,6 +172,18 @@ a.custom-card:hover {
     font-size: 25px;
 }
 
+.nameStyle {
+    color: lightblue;
+}
+
+.nameStyle:hover {
+    color: deepskyblue;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
 .v-center {
     height: 100%;
     display: grid;
