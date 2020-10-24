@@ -78,6 +78,43 @@
             <hr/>
 
             <div class="w-100 mt-3">
+
+                <div class="text-left mt-3" style="font-size: 20px">
+                    <b>Metodo de pago</b>
+                    <div>
+                        <img src="https://www.flaticon.com/svg/static/icons/svg/196/196561.svg" class="pointer"
+                             height="64px" data-toggle="modal" data-target="#staticBackdrop"/>
+                        <img src="https://www.flaticon.com/svg/static/icons/svg/196/196578.svg" class="pointer mx-2"
+                             height="64px" data-toggle="modal" data-target="#staticBackdrop"/>
+                        <img src="https://www.flaticon.com/svg/static/icons/svg/714/714867.svg" class="pointer"
+                             height="64px" data-toggle="modal" data-target="#staticBackdrop"/>
+                    </div>
+                </div>
+
+                <div class="my-3 shipping">
+                    <b>Metodo de envio</b>
+                    <div class="input-group">
+                        <select class="custom-select" id="shippingSelect">
+                            <option disabled selected value="0">Elegir...</option>
+                            <option value="15">Premium (2-5 días) - Costo del 15% sobre el subtotal.</option>
+                            <option value="7">Express (5-8 días) - Costo del 7% sobre el subtotal.</option>
+                            <option value="5">Standard (12 a 15 días) - Costo del 5% sobre el subtotal.</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="text-right" style="font-size: 20px">
+                    <b>Sub Total: </b>
+                    <span id="cart-subtotal" style="font-size: 24px">200</span>
+                    <small> US$</small>
+                </div>
+
+                <div class="text-right" style="font-size: 16px">
+                    <b>Envio: </b>
+                    <span id="cart-shipping" style="font-size: 20px">200</span>
+                    <small> US$</small>
+                </div>
+
                 <div class="text-right" style="font-size: 20px">
                     <b>Total: </b>
                     <span id="cart-total" style="font-size: 24px">200</span>
@@ -85,9 +122,81 @@
                 </div>
             </div>
         </div>
+    </div>
 
+    <div id="purchaseAlert" class="alert d-none" role="alert">
+    </div>
+
+    <button class="btn btn-danger mt-3 w-100" onclick="purchase()">COMPRAR</button>
+
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="mx-auto">
+                    <div id="pay-invoice" class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h3 class="text-center">Metodo de Pago</h3>
+                            </div>
+                            <hr>
+
+                            <div class="form-group">
+                                <label for="cc-number" class="control-label mb-1">Numero de Tarjeta</label>
+                                <input id="cc-number" name="cc-number" type="tel"
+                                       class="form-control cc-number identified visa">
+                                <span id="invalid-cc" class="invalid-feedback">Ingrese un número de tarjeta válido de 12 a 16 dígitos</span>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="cc-exp" class="control-label mb-1">Expiracion</label>
+                                        <input id="cc-exp" name="cc-exp" type="tel" class="form-control cc-exp"
+                                               required placeholder="MM / YY">
+                                        <span id="invalid-exp"
+                                              class="invalid-feedback">Ingrese la fecha de vencimiento</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <label for="x_card_code" class="control-label mb-1">CVV</label>
+                                    <div class="input-group">
+                                        <input id="x_card_code" name="x_card_code" type="tel"
+                                               class="form-control cc-cvc" required>
+                                        <span id="invalid-cvv" class="invalid-feedback order-last">Ingrese el código de 3 dígitos al dorso</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="x_zip" class="control-label mb-1">Codigo postal</label>
+                                <input id="x_zip" name="x_zip" type="text" class="form-control" value=""
+                                       data-val="true" data-val-required="Please enter the ZIP/Postal code"
+                                       autocomplete="postal-code">
+                                <span id="invalid-zip"
+                                      class="invalid-feedback order-last">Ingrese su código postal.</span>
+                            </div>
+
+                            <div>
+                                <button type="button" id="payment-button" onclick="hideModal()"
+                                        class="btn btn-lg btn-info btn-block">
+                                    <span id="payment-button-amount">Pay </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+
 <div id="spinner-wrapper">
     <div class="lds-ring">
         <div></div>

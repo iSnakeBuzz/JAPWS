@@ -184,6 +184,10 @@ a.custom-card:hover {
     cursor: pointer;
 }
 
+.shipping {
+    width: 250px;
+}
+
 .v-center {
     height: 100%;
     display: grid;

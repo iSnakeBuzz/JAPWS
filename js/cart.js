@@ -2,6 +2,7 @@
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 let items = [];
+let shippingPercent = 0;
 
 document.addEventListener("DOMContentLoaded", function (e) {
 
@@ -12,6 +13,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
         update();
 
+    })
+
+    document.getElementById("shippingSelect").addEventListener("click", ev => {
+        shippingPercent = ev.target.value;
+        update();
     })
 
 });
@@ -52,23 +58,13 @@ function update() {
     let doc = document.getElementById('cart-container');
     doc.innerHTML = "";
 
-    let totalPrice = 0;
-
     items.forEach((value, index) => {
-        let count = value.count;
         let price = value.unitCost;
         let currency = value.currency;
-
-        if (currency === "UYU") {
-            totalPrice += (price / 40) * count;
-        } else if (currency === "USD") {
-            totalPrice += price * count;
-        }
-
         doc.innerHTML += createItem(value.name, index, price, currency, value.src, value.count);
     })
 
-    document.getElementById("cart-total").innerText = totalPrice;
+    calcTotal()
 }
 
 function cartChange(id) {
@@ -88,7 +84,7 @@ function handleDelete(id) {
 }
 
 function calcTotal() {
-    let totalPrice = 0;
+    let subTotal = 0;
 
     items.forEach((value, index) => {
         let count = value.count;
@@ -96,11 +92,83 @@ function calcTotal() {
         let currency = value.currency;
 
         if (currency === "UYU") {
-            totalPrice += (price / 40) * count;
+            subTotal += (price / 40) * count;
         } else if (currency === "USD") {
-            totalPrice += price * count;
+            subTotal += price * count;
         }
     })
 
-    document.getElementById("cart-total").innerText = totalPrice;
+    document.getElementById("cart-subtotal").innerText = subTotal;
+
+    // Calculating taxes.
+    let shippingPrice = subTotal / 100 * shippingPercent;
+    document.getElementById("cart-shipping").innerText = shippingPrice;
+    document.getElementById("cart-total").innerText = subTotal + shippingPrice;
+}
+
+
+function hideModal() {
+    let cc = document.getElementById("cc-number").value;
+    let ccExp = document.getElementById("cc-exp").value;
+    let cvv = document.getElementById("x_card_code").value;
+    let zip = document.getElementById("x_zip").value;
+
+    let bool = (cc === "" || ccExp === "" || cvv === "" || zip === "");
+
+    checkPaymentStatus(cc === "", ccExp === "", cvv === "", zip === "")
+
+    if (bool) return console.log("Please complete all inputs");
+
+    $('#staticBackdrop').modal('hide');
+}
+
+function checkPaymentStatus(cc, ccexp, cvv, zip) {
+    let invalidCc = document.getElementById("invalid-cc");
+    let invalidExp = document.getElementById("invalid-exp");
+    let invalidCvv = document.getElementById("invalid-cvv");
+    let invalidZip = document.getElementById("invalid-zip");
+
+    if (cc) invalidCc.style.display = "block"
+    else invalidCc.style.display = "none"
+
+    if (ccexp) invalidExp.style.display = "block"
+    else invalidExp.style.display = "none"
+
+    if (cvv) invalidCvv.style.display = "block"
+    else invalidCvv.style.display = "none"
+
+    if (zip) invalidZip.style.display = "block"
+    else invalidZip.style.display = "none"
+}
+
+function purchase() {
+    let cc = document.getElementById("cc-number").value;
+    let ccExp = document.getElementById("cc-exp").value;
+    let cvv = document.getElementById("x_card_code").value;
+    let zip = document.getElementById("x_zip").value;
+
+    let paymentMethod = (cc === "" || ccExp === "" || cvv === "" || zip === "");
+    let shipping = shippingPercent > 0;
+    let haveItems = items.length > 0;
+
+    console.log(!paymentMethod, shipping, haveItems)
+    let alert = document.getElementById("purchaseAlert");
+
+
+    if (!paymentMethod && shipping && haveItems) {
+        alert.classList.remove("d-none")
+        alert.classList.remove("alert-danger")
+        alert.innerText = "Gracias por comprar!"
+        alert.classList.add("alert-success")
+    } else {
+        alert.classList.remove("d-none")
+        alert.classList.remove("alert-success")
+        alert.innerText = "Completa todos los campos!"
+        alert.classList.add("alert-danger")
+    }
+
+    setTimeout(() => {
+        alert.classList.add("d-none")
+    }, 1000 * 5);
+
 }
