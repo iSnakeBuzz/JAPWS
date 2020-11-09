@@ -3,79 +3,159 @@
 <html lang="en">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <title>eMercado - Todo lo que busques está aquí</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>eMercado - Todo lo que busques está aquí</title>
 
-  <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
+    <style>
+        /*Profile Pic Start*/
+        .picture-container {
+            position: relative;
 
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-  </style>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
-  <link href="css/dropzone.css" rel="stylesheet">
+            display: grid;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+
+            cursor: pointer;
+            text-align: center;
+            height: 100%;
+        }
+
+        .picture {
+            width: 106px;
+            height: 106px;
+            background-color: #999999;
+            border: 4px solid #CCCCCC;
+            color: #FFFFFF;
+            border-radius: 50%;
+            margin: 0px auto;
+            overflow: hidden;
+            transition: all 0.2s;
+            -webkit-transition: all 0.2s;
+        }
+
+        .picture:hover {
+            border-color: #2ca8ff;
+        }
+
+        .content.ct-wizard-green .picture:hover {
+            border-color: #05ae0e;
+        }
+
+        .content.ct-wizard-blue .picture:hover {
+            border-color: #3472f7;
+        }
+
+        .content.ct-wizard-orange .picture:hover {
+            border-color: #ff9500;
+        }
+
+        .content.ct-wizard-red .picture:hover {
+            border-color: #ff3b30;
+        }
+
+        .picture input[type="file"] {
+            cursor: pointer;
+            display: block;
+            height: 100%;
+            left: 103px;
+            opacity: 0 !important;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+
+        .picture-src {
+            width: 100%;
+        }
+
+        /*Profile Pic End*/
+    </style>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/dropzone.css" rel="stylesheet">
 </head>
 
 <body>
-  <nav class="site-header sticky-top py-1 bg-dark">
+<nav class="site-header sticky-top py-1 bg-dark">
     <div class="container d-flex flex-column flex-md-row justify-content-between">
-      <a class="py-2 d-none d-md-inline-block" href="index.html">Inicio</a>
-      <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
-      <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
-      <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
-      <span id="nav_user" class="py-2 d-none d-md-inline-block text-white d-none"></span>
+        <a class="py-2 d-none d-md-inline-block" href="index.html">Inicio</a>
+        <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
+        <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
+        <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
+        <span id="nav_user" class="py-2 d-none d-md-inline-block text-white d-none"></span>
     </div>
-  </nav>
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 7 (Fecha de entrega: 8/11/202020) -> Punto 1 y 2.</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+</nav>
+
+
+<div id="mainContent" class="container h-100 my-3">
+    <div class="row mx-auto my-auto justify-content-center">
+
+        <!-- Profile pic upload :D -->
+        <div class="col col-md-4">
+            <div class="container h-100">
+                <div class="picture-container">
+                    <div class="picture">
+                        <img src="https://lh3.googleusercontent.com/LfmMVU71g-HKXTCP_QWlDOemmWg4Dn1rJjxeEsZKMNaQprgunDTtEuzmcwUBgupKQVTuP0vczT9bH32ywaF7h68mF-osUSBAeM6MxyhvJhG6HKZMTYjgEv3WkWCfLB7czfODidNQPdja99HMb4qhCY1uFS8X0OQOVGeuhdHy8ln7eyr-6MnkCcy64wl6S_S6ep9j7aJIIopZ9wxk7Iqm-gFjmBtg6KJVkBD0IA6BnS-XlIVpbqL5LYi62elCrbDgiaD6Oe8uluucbYeL1i9kgr4c1b_NBSNe6zFwj7vrju4Zdbax-GPHmiuirf2h86eKdRl7A5h8PXGrCDNIYMID-J7_KuHKqaM-I7W5yI00QDpG9x5q5xOQMgCy1bbu3St1paqt9KHrvNS_SCx-QJgBTOIWW6T0DHVlvV_9YF5UZpN7aV5a79xvN1Gdrc7spvSs82v6gta8AJHCgzNSWQw5QUR8EN_-cTPF6S-vifLa2KtRdRAV7q-CQvhMrbBCaEYY73bQcPZFd9XE7HIbHXwXYA=s200-no"
+                             class="picture-src" id="profilePicImage" title="">
+                        <input type="file" id="profile-pic" class="">
+                    </div>
+                    <h6 class="">Subir Imagen</h6>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col col-md-5">
+            <div class="mb-4">
+                <label>Nombre</label>
+                <input type="text" class="form-control" placeholder="Nombre" id="name">
+            </div>
+
+            <div class="mb-4">
+                <label>Apellido</label>
+                <input type="text" class="form-control" placeholder="Apellido" id="last_name">
+            </div>
+
+            <div class="mb-4">
+                <label>E-mail</label>
+                <input type="text" class="form-control" placeholder="E-mail" id="email">
+            </div>
+
+            <div>
+                <label>Teléfono</label>
+                <input type="text" class="form-control" placeholder="Teléfono" id="phone">
+            </div>
+        </div>
+
     </div>
-  </div>
-  <footer class="text-muted bg-light">
+
+    <div class="row mx-auto my-auto mt-4 justify-content-center">
+        <div class="col col-auto w-50">
+            <button class="btn btn-outline-success w-100 mt-3" onclick="save()">SAVE</button>
+        </div>
+    </div>
+
+</div>
+
+
+<footer class="text-muted bg-light">
     <div class="container">
-      <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
-      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+        <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
+        <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
     </div>
-  </footer>
-  <div class="alert fade alert-success" role="alert" id="alertResult">
-    <span id="resultSpan"></span>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div id="spinner-wrapper">
-    <div class="lds-ring">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
-  <script src="js/jquery-3.4.1.min.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/dropzone.js"></script>
-  <script src="js/init.js"></script>
-  <script src="js/my-profile.js"></script>
+</footer>
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/dropzone.js"></script>
+<script src="js/init.js"></script>
+<script src="js/my-profile.js"></script>
 </body>
 
 </html>

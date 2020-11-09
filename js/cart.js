@@ -54,6 +54,37 @@ function createItem(name = "", id = 0, price = "", currency = "usd", image = "",
     `;
 }
 
+function createNewItem(name = "", id = 0, price = "", currency = "usd", image = "", count = 0) {
+    return `
+    <div class="col col-auto"><div class="card" style="width: 18rem;">
+          <img src="${image}" class="card-img-top" >
+          <div class="card-body">
+            <h5 class="card-title">${name}</h5>
+                <p class="card-text">
+                    <b>Precio</b> <span id="cart-${id}-price">${price}</span> ${currency}
+                    <div class="">
+                        <b>Cantidad</b> 
+                        <input 
+                            id="cart-${id}-input"
+                            type="number" 
+                            aria-label="Cantidad" 
+                            value="${count}" 
+                            min="0" 
+                            max="100" 
+                            onchange="cartChange(${id})" 
+                            class="form-control" 
+                            style="width: 80px; display: inline;"
+                        />
+                    </div>
+                </p>
+            </div>
+            <button type="button" onclick="handleDelete(${id})" class="btn btn-danger px-1 py-0 rounded-0">Borrar</button>
+          </div>
+        </div>
+    </div>
+    `;
+}
+
 function update() {
     let doc = document.getElementById('cart-container');
     doc.innerHTML = "";
@@ -61,7 +92,7 @@ function update() {
     items.forEach((value, index) => {
         let price = value.unitCost;
         let currency = value.currency;
-        doc.innerHTML += createItem(value.name, index, price, currency, value.src, value.count);
+        doc.innerHTML += createNewItem(value.name, index, price, currency, value.src, value.count);
     })
 
     calcTotal()
